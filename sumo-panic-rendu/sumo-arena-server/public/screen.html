@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sumo Panic Arena - Écran</title>
+</head>
+<body>
+  <h1>Sumo Panic Arena – Lobby</h1>
+  <p>Joueurs connectés : <span id="count">0</span></p>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io(); // connexion au serveur
+    const countSpan = document.getElementById('count');
+
+    socket.on('playerCount', (count) => {
+      countSpan.textContent = count;
+    });
+  </script>
+</body>
+</html>

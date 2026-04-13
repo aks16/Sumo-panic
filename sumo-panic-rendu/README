@@ -1,0 +1,74 @@
+git init
+git remote add origin https://jlassa:glpat-9KDTptEbFs2CGxoeWKtKSm86MQp1OjFiNAk.01.0z0reolnz@git.iut-orsay.fr/jlassa/sumo-panic.git
+git fetch
+git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+git branch -m Main
+PS C:\Users\lassa\OneDrive\Documents\Education\Cours\S4\Projet\Perso\d> git status
+On branch Main
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+PS C:\Users\lassa\OneDrive\Documents\Education\Cours\S4\Projet\Perso\d>
+
+
+
+cours : https://qualite-developpement-s2-1c0a85.gitpages.iut-orsay.fr/tp2/ 
+
+
+import model.Keponom;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class KeponomTest {
+    // On déclare l'objet en static pour qu'il soit partagé (BeforeClass) 
+    private static Keponom keponom;
+
+    // 1. S'exécute UNE SEULE FOIS au tout début
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        keponom = new Keponom(); // Création de l'instance
+    }
+
+    // 2. S'exécute AVANT CHAQUE méthode @Test
+    @Before
+    public void setUp() {
+        // Remet le Képonom à son état initial (hp = 17) 
+        // Cela garantit que le Test A n'influence pas le Test B.
+        keponom.init(); 
+    }
+
+    // 3. Les méthodes de test (cas concrets) [cite: 106, 228]
+    @Test
+    public void testDamageNormal() {
+        keponom.damage(5);
+        // assertEquals(attendu, actuel)
+        assertEquals(12, keponom.getHP()); 
+    }
+
+        @Test
+    public void testMortAutomatique() {
+        keponom.damage(17); // On inflige le max de dégâts
+        assertEquals(0, keponom.getHP()); // Vérifie la valeur exacte [cite: 166]
+        assertTrue(keponom.isDead());      // Vérifie l'état logique [cite: 238]
+    }
+}
+
+
+Accès token Personnel token : 
+PROFILE<Edit profile<menu gauche acces token
+
+git remote add origin https://<votre login court>:<Personal Access Token>@git.iut-orsay.fr/<login du créateur du projet>/<nom du projet>.git
+
+git remote add origin https://jlassa:glpat-9KDTptEbFs2CGxoeWKtKSm86MQp1OjFiNAk.01.0z0reolnz@git.iut-orsay.fr/jlassa/sumo-panic.git
+
+
+git branch nom
+git checkout mo

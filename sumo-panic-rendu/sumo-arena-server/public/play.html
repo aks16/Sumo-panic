@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sumo Panic Arena - Manette</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      text-align: center;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      touch-action: none;
+    }
+    h1 {
+      font-size: 20px;
+      margin-top: 16px;
+    }
+    #status {
+      margin-bottom: 16px;
+    }
+    .pad {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+      gap: 40px;
+    }
+
+    /* Joueur vivant : joystick */
+    #joystickArea {
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: #222;
+      border: 3px solid #555;
+      position: relative;
+      touch-action: none;
+    }
+    #stick {
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      background: #999;
+      border: 2px solid #fff;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    #pushBtn {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      background: #a00;
+      color: #fff;
+    }
+    #pushBtn:active {
+      background: #e00;
+    }
+
+    /* Ecrans fantôme / loterie */
+    #lotteryUI, #ghostUI {
+      margin-top: 60px;
+    }
+    .ghostBtn {
+      width: 140px;
+      height: 60px;
+      margin: 8px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+    }
+    #ghostExplosion { background: #c0392b; }
+    #ghostBanana { background: #f1c40f; color: #000; }
+  </style>
+</head>
+<body>
+  <h1>Manette Sumo</h1>
+  <div id="status">Connexion en cours...</div>
+
+  <!-- UI joueur vivant -->
+  <div id="playerUI">
+    <div class="pad">
+      <div id="joystickArea">
+        <div id="stick"></div>
+      </div>
+
+      <button id="pushBtn">POUSSER</button>
+    </div>
+  </div>
+
+  <!-- UI loterie fantôme -->
+  <div id="lotteryUI" style="display:none">
+    <h2>Vous êtes KO !</h2>
+    <p>Tirage au sort Fantôme en cours...</p>
+  </div>
+
+  <!-- UI fantôme -->
+  <div id="ghostUI" style="display:none">
+    <h2>Mode Fantôme</h2>
+    <p>Choisissez un piège :</p>
+    <button id="ghostExplosion" class="ghostBtn">Explosion</button>
+    <button id="ghostBanana" class="ghostBtn">Peau de banane</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const statusEl = document.getElementById('status');
+
+    const playerUI = document.getElementById('playerUI');
+    const lotteryUI = document.getElementById('lotteryUI');
+    const ghostUI = document.getElementById('ghostUI');
+
+    const joystickArea = document.getElementById('joystickArea');
+    const stick = document.getElementById('stick');
+    const pushBtn = document.getElementById('pushBtn');
+
+    const ghostExplosionBtn = document.getElementById('ghostExplosion');
+    const ghostBananaBtn = document.getElementById('ghostBanana');
+
+    let playerId = null;
+    let mode = 'player'; // 'player', 'lottery', 'ghost', 'spectator'
+
+    const inputState = {
+      h: 0,
+      v: 0,
+      push: false
+    };
+
+    // --------- Gestion des modes UI ---------
+
+    function updateModeUI() {
+      if (mode === 'player') {
+        playerUI.style.display = 'block';
+        lotteryUI.style.display = 'none';
+        ghostUI.style.display = 'none';
+      } else if (mode === 'lottery') {
+        playerUI.style.display = 'none';
+        lotteryUI.style.display = 'block';
+        ghostUI.style.display = 'none';
+      } else if (mode === 'ghost') {
+        playerUI.style.display = 'none';
+        lotteryUI.style.display = 'none';
+        ghostUI.style.display = 'block';
+      } else if (mode === 'spectator') {
+        playerUI.style.display = 'none';
+        lotteryUI.style.display = 'none';
+        ghostUI.style.display = 'none';
+      }
+    }
+
+    // --------- Connexion / événements serveur ---------
+
+    socket.on('connect', () => {
+      statusEl.textContent = 'Connexion au serveur...';
+    });
+
+    socket.on('hello', (data) => {
+      playerId = data.playerId;
+      const phase = data.phase || 'LOBBY';
+
+      if (phase === 'PLAYING') {
+        // Manche déjà en cours -> spectateur
+        mode = 'spectator';
+        statusEl.textContent = `Joueur #${playerId} connecté (spectateur). Manche en cours, vous participerez à la prochaine.`;
+      } else {
+        // Lobby -> joueur normal
+        mode = 'player';
+        statusEl.textContent = `Joueur #${playerId} connecté. En attente du lancement de la manche...`;
+      }
+
+      updateModeUI();
+    });
+
+    socket.on('enterLottery', () => {
+      mode = 'lottery';
+      statusEl.textContent = `Joueur #${playerId} éliminé. Tirage au sort Fantôme...`;
+      // on arrête les déplacements
+      inputState.h = 0;
+      inputState.v = 0;
+      inputState.push = false;
+      resetJoystick();
+      updateModeUI();
+    });
+
+    socket.on('ghostResult', (data) => {
+      if (data && data.selected) {
+        // Gagné -> fantôme
+        mode = 'ghost';
+        statusEl.textContent = `Joueur #${playerId} devient Fantôme !`;
+      } else {
+        // Perdu -> spectateur
+        mode = 'spectator';
+        statusEl.textContent = `Pas de pouvoir fantôme cette manche. Vous êtes spectateur.`;
+      }
+      updateModeUI();
+    });
+
+    socket.on('enterGhostMode', () => {
+      mode = 'ghost';
+      updateModeUI();
+    });
+
+    socket.on('disconnect', () => {
+      statusEl.textContent = 'Déconnecté ❌';
+      mode = 'spectator';
+      updateModeUI();
+    });
+
+    // --------- Envoi régulier des inputs (joueur vivant) ---------
+
+    function sendInputLoop() {
+      if (mode !== 'player') {
+        // inputs neutres si on n'est pas joueur vivant
+        inputState.h = 0;
+        inputState.v = 0;
+        inputState.push = false;
+      }
+
+      socket.emit('input', inputState);
+      setTimeout(sendInputLoop, 50);
+    }
+    sendInputLoop();
+
+    // --------- Gestion du bouton PUSH ---------
+
+    function addPressHold(btn, onDown, onUp) {
+      const upFn = onUp || (() => {});
+      btn.addEventListener('touchstart', (e) => { e.preventDefault(); onDown(); });
+      btn.addEventListener('touchend',   (e) => { e.preventDefault(); upFn(); });
+      btn.addEventListener('mousedown',  (e) => { e.preventDefault(); onDown(); });
+      btn.addEventListener('mouseup',    (e) => { e.preventDefault(); upFn(); });
+      btn.addEventListener('mouseleave', (e) => { e.preventDefault(); upFn(); });
+    }
+
+    addPressHold(
+      pushBtn,
+      () => { inputState.push = true; },
+      () => { inputState.push = false; }
+    );
+
+    // --------- Joystick virtuel ---------
+
+    let joystickActive = false;
+    const maxRadius = 60;
+
+    function getPointFromEvent(e) {
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else {
+        return { x: e.clientX, y: e.clientY };
+      }
+    }
+
+    function updateJoystick(e) {
+      const point = getPointFromEvent(e);
+      const rect = joystickArea.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      let dx = point.x - centerX;
+      let dy = point.y - centerY;
+
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist > maxRadius) {
+        dx = dx * maxRadius / dist;
+        dy = dy * maxRadius / dist;
+      }
+
+      stick.style.transform = `translate(${dx}px, ${dy}px)`;
+
+      const nx = dx / maxRadius;
+      const ny = dy / maxRadius;
+
+      inputState.h = nx;
+      inputState.v = -ny;
+    }
+
+    function resetJoystick() {
+      stick.style.transform = 'translate(-50%, -50%)';
+      inputState.h = 0;
+      inputState.v = 0;
+    }
+
+    joystickArea.addEventListener('touchstart', (e) => {
+      if (mode !== 'player') return;
+      e.preventDefault();
+      joystickActive = true;
+      updateJoystick(e);
+    });
+
+    joystickArea.addEventListener('touchmove', (e) => {
+      if (!joystickActive || mode !== 'player') return;
+      e.preventDefault();
+      updateJoystick(e);
+    });
+
+    joystickArea.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      joystickActive = false;
+      resetJoystick();
+    });
+
+    joystickArea.addEventListener('mousedown', (e) => {
+      if (mode !== 'player') return;
+      e.preventDefault();
+      joystickActive = true;
+      updateJoystick(e);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!joystickActive || mode !== 'player') return;
+      e.preventDefault();
+      updateJoystick(e);
+    });
+
+    window.addEventListener('mouseup', (e) => {
+      if (!joystickActive) return;
+      e.preventDefault();
+      joystickActive = false;
+      resetJoystick();
+    });
+
+    // --------- Boutons de pièges fantôme ---------
+
+    ghostExplosionBtn.addEventListener('click', () => {
+      if (mode === 'ghost') {
+        socket.emit('trap', { playerId, type: 'explosion' });
+      }
+    });
+
+    ghostBananaBtn.addEventListener('click', () => {
+      if (mode === 'ghost') {
+        socket.emit('trap', { playerId, type: 'banana' });
+      }
+    });
+  </script>
+</body>
+</html>
