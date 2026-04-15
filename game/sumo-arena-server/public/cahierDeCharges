@@ -1,0 +1,43 @@
+Tu peux garder ta structure et simplement réécrire la partie **3.2 Règles de base** comme ceci, en intégrant le mode Fantôme avec loterie et le fait qu’on fige les participants au début de la manche.
+
+Tu peux copier‑coller / adapter ce texte :
+
+---
+
+### 3.2 Règles de base (version mise à jour)
+
+- **Rejoindre la partie (Lobby)**  
+  - Tous les joueurs se connectent en scannant un QR code affiché sur le grand écran.  
+  - Ils choisissent éventuellement un pseudo et reçoivent un Sumo avec une couleur ou un accessoire distinctif.  
+  - Tant que la manche n’a pas commencé, de nouveaux joueurs peuvent rejoindre le **lobby**.
+
+- **Lancement de la manche**  
+  - Lorsque l’enseignant (ou l’organisateur) lance la manche, la liste des joueurs participants est **figée** : ce sont tous les joueurs connectés à ce moment-là.  
+  - Les nouveaux joueurs qui se connectent ensuite restent spectateurs et ne recevront un Sumo qu’à la manche suivante.  
+  - Tous les Sumos des joueurs participants apparaissent alors sur une plateforme flottante en 3D.
+
+- **Déroulement du combat**  
+  - Les joueurs peuvent se déplacer sur la plateforme et utiliser une action de **poussée** pour tenter d’éjecter leurs adversaires.  
+  - Au fil du temps :
+    - Des zones de l’arène se **fissurent**, tremblent puis disparaissent, ce qui réduit progressivement la surface jouable.  
+    - Des **événements aléatoires** (par exemple la charge d’un rhinocéros, des zones d’huile glissante, etc.) viennent perturber la position des joueurs.
+
+- **Élimination d’un joueur et mode Fantôme (loterie)**  
+  - Lorsqu’un Sumo tombe dans le vide (en dehors de la plateforme), le joueur est éliminé de la manche : son personnage disparaît de l’arène et il ne peut plus gagner cette manche.  
+  - Si, au moment où il tombe, il reste **au moins deux joueurs vivants** et qu’il reste des places disponibles pour des fantômes, le joueur entre dans une **“loterie des Fantômes”** :
+    - son téléphone affiche un écran de tirage (“Vous êtes KO – Tirage au sort Fantôme en cours…”),  
+    - le serveur détermine aléatoirement, avec une certaine probabilité, s’il devient Fantôme ou non.  
+  - Le **nombre maximum de fantômes actifs** est calculé automatiquement au début de la manche en fonction du nombre de participants (par exemple un pourcentage des joueurs, limité pour éviter d’avoir trop de fantômes en même temps).  
+  - Si le joueur est **sélectionné comme Fantôme** :
+    - son interface passe en **Mode Fantôme**,  
+    - il ne contrôle plus de Sumo, mais dispose de boutons de **pièges** (explosion, zone glissante, bourrasque, etc.) qui lui permettent d’influencer à distance la position des joueurs encore en vie, avec un temps de recharge entre chaque utilisation.  
+  - S’il **n’est pas sélectionné**, il reste simple **spectateur** jusqu’à la fin de la manche (il voit l’action sur le grand écran, mais n’a plus de contrôle).
+
+- **Fin de manche**  
+  - La manche se termine lorsqu’il ne reste plus qu’**un seul joueur vivant** sur la plateforme.  
+  - Aucun nouveau fantôme n’est créé à partir du moment où il ne reste plus qu’un seul joueur vivant : le dernier survivant est immédiatement déclaré **vainqueur de la manche**.  
+  - Le grand écran affiche le joueur gagnant (par son numéro et/ou son pseudo), puis le jeu revient en **phase de lobby** pour préparer la manche suivante, où de nouveaux joueurs peuvent rejoindre ou rejouer.
+
+---
+
+Tu peux ajuster les phrases sur le calcul du nombre de fantômes (par exemple préciser “30 % des joueurs, arrondi, avec un maximum de 4 fantômes”) si tu veux être plus précis dans ton document.

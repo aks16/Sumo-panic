@@ -1,0 +1,947 @@
+fileFormatVersion: 2
+guid: d6ed4c632f5fd8b4798c12c736aa48e4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 299
+        width: 100
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c487877c79198de4b9053a57f3c3e00d
+      internalID: -1513749253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 299
+        width: 100
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 706559b40b154744a9175f551c51dfa6
+      internalID: 2119197104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 299
+        width: 101
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b89679d670713a45a2befe9f71e6d61
+      internalID: -1426936278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 298
+        width: 104
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f15e04349bfd6b54b86d7a67f3434cef
+      internalID: 417700522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 298
+        width: 103
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204436eb3caf47b45a88e903ae6e9f95
+      internalID: 1911916618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 298
+        width: 103
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97fbe6a3ff07a8341b0e69b01ce05e4d
+      internalID: -686326394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 239
+        width: 99
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b4161b8f50baa14f936b74801a351af
+      internalID: 1824784025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 239
+        width: 99
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b4d4da618a777445ae5b382e32f58ed
+      internalID: 573054110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 239
+        width: 98
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80a8704c41540954d9524f87e891a5ca
+      internalID: -1829077101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 239
+        width: 94
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01dcb915106bf4c4bb7decfa17c6db83
+      internalID: -352742113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 239
+        width: 94
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2947dfb93e819f248b9c4ae18e6254b7
+      internalID: -1270328831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_11
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 239
+        width: 95
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6e34120c8e6a9e439e45bcf62b53fa0
+      internalID: -643811615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_12
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 180
+        width: 95
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e676a8729424c7478b624b0ae72c97c
+      internalID: 1748392297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_13
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 180
+        width: 94
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26c427ad49143f54a9d89b93b9423f39
+      internalID: 842650375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_14
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 180
+        width: 94
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41b2a031668b1bb44bcb90ebc28f3000
+      internalID: 1617884634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_15
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 180
+        width: 94
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 079e2187c23b8fa43a2745054c0f0063
+      internalID: -259385785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_16
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 182
+        width: 100
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1555047eab7d4fb48b5a8e43b1cb3d83
+      internalID: -1741046148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_17
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 181
+        width: 106
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cdefc38d66ca324da16331108514704
+      internalID: 260057876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 120
+        width: 106
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f94d377e33bd6e74eadd8cf808ecff12
+      internalID: -1202128202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_19
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 120
+        width: 105
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f96f7f0677e5f514382e464fb7ba7530
+      internalID: 274545616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_20
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 120
+        width: 102
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21fb169e04cfc424d8582f9452066630
+      internalID: 994815174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_21
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 120
+        width: 101
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae03c5e059e61c4499f3747b76504c83
+      internalID: -770824307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_22
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 122
+        width: 98
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed3bc6c97a62874a8125646dbe1ef57
+      internalID: 300160026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_23
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 120
+        width: 99
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2555190422278ad4e9ac343469287458
+      internalID: -1292788760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_24
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 61
+        width: 97
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a102f29b30052f42ab3b85e63907a2e
+      internalID: -1451880953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_25
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 62
+        width: 95
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e22514bda513ce54fa79ccb85d7db85e
+      internalID: -1807808574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_26
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 62
+        width: 101
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca0e2a78cd2dd0f44b4df1055ac0016f
+      internalID: -926001439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_27
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 60
+        width: 102
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d62b31cc694a554282360eb41709ee4
+      internalID: 1069374591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_28
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 60
+        width: 103
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a2816f2d0a4f3e40b150917df0a45b5
+      internalID: -1471625695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_29
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 60
+        width: 103
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c775af916c06fa646b7ffaa7a1ee2412
+      internalID: 876392254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 100
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59b982c462b5234429a0521686093cce
+      internalID: 1361859821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_31
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 3
+        width: 99
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9827fb5080582d04bb9d3409819c4143
+      internalID: -1778387486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_32
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 2
+        width: 99
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e410d48f1cf904a98f253e7d706d56
+      internalID: -242297161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_33
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 2
+        width: 98
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0b524a7ac6e8d641a0b58833557be94
+      internalID: -444460557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_34
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 3
+        width: 95
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8454a7b0608cc2345bdafdde57697fcb
+      internalID: 1432180722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_35
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 4
+        width: 101
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5595b3f7e3114014aabf5b5f9b77b11d
+      internalID: -256598452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 04f41515febbfb3469a095a5508e2b62
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_0: -1513749253
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_1: 2119197104
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_10: -1270328831
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_11: -643811615
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_12: 1748392297
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_13: 842650375
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_14: 1617884634
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_15: -259385785
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_16: -1741046148
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_17: 260057876
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_18: -1202128202
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_19: 274545616
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_2: -1426936278
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_20: 994815174
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_21: -770824307
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_22: 300160026
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_23: -1292788760
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_24: -1451880953
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_25: -1807808574
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_26: -926001439
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_27: 1069374591
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_28: -1471625695
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_29: 876392254
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_3: 417700522
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_30: 1361859821
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_31: -1778387486
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_32: -242297161
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_33: -444460557
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_34: 1432180722
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_35: -256598452
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_4: 1911916618
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_5: -686326394
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_6: 1824784025
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_7: 573054110
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_8: -1829077101
+      A-low-poly-side-view-sprite-of-a-stylized-rhinocer-max-px-36-removebg-preview_9: -352742113
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
