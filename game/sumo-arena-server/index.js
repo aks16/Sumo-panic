@@ -212,6 +212,39 @@ app.get('/api/traps', (req, res) => {
   res.json({ traps: trapsToSend });
 });
 
+// Reset de la manche (retour au lobby)
+app.post('/api/resetRound', (req, res) => {
+  gamePhase = 'LOBBY';
+  currentRoundPlayerIds = new Set();
+  pendingTraps = [];
+  
+  // Remettre tous les joueurs en idle
+  for (const idStr of Object.keys(players)) {
+    players[idStr].state = 'idle';
+  }
+  
+  // Notifier toutes les manettes
+  io.emit('roundReset', { phase: 'LOBBY' });
+  
+  console.log('Manche reset - retour au lobby');
+  res.json({ ok: true, phase: gamePhase });
+});
+
+// Info sur l'etat du jeu (pour debug et UI)
+app.get('/api/gameState', (req, res) => {
+  const aliveCount = getAliveCount();
+  const ghostCount = getGhostCount();
+  
+  res.json({
+    phase: gamePhase,
+    playerCount: Object.keys(players).length,
+    participantCount: currentRoundPlayerIds.size,
+    aliveCount,
+    ghostCount,
+    maxGhosts: maxGhostsActive
+  });
+});
+
 // --------------------- Loterie Fantôme ---------------------
 
 function handlePlayerEliminated(playerId) {

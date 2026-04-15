@@ -64,7 +64,7 @@ public class RemotePlayersManager : MonoBehaviour
     {
         public PlayerDto dto;
         public GameObject go;
-        public SumoController controller;
+        public SumoAnimatedController controller;
         public bool seenThisFrame;
         public bool isAlive = true;
     }
@@ -131,7 +131,13 @@ public class RemotePlayersManager : MonoBehaviour
                                 Vector3 pos = new Vector3(pos2D.x, spawnY, pos2D.y);
 
                                 GameObject go = Instantiate(sumoPrefab, pos, Quaternion.identity);
-                                SumoController ctrl = go.GetComponent<SumoController>();
+                                SumoAnimatedController ctrl = go.GetComponent<SumoAnimatedController>();
+                                
+                                // Desactiver les controles clavier pour les joueurs distants
+                                if (ctrl != null)
+                                {
+                                    ctrl.useKeyboardControls = false;
+                                }
 
                                 lp = new LocalPlayer
                                 {

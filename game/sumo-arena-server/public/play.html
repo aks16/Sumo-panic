@@ -3,263 +3,546 @@
 <head>
   <meta charset="UTF-8" />
   <title>Sumo Panic Arena - Manette</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
     body {
-      font-family: system-ui, sans-serif;
-      text-align: center;
-      background: #111;
-      color: #fff;
+      font-family: 'Noto Sans JP', system-ui, sans-serif;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
       touch-action: none;
+      user-select: none;
+      overflow: hidden;
     }
-    h1 {
-      font-size: 20px;
-      margin-top: 16px;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 16px;
     }
-    #status {
-      margin-bottom: 16px;
+
+    /* Header */
+    .header {
+      text-align: center;
+      width: 100%;
     }
-    .pad {
+
+    .title {
+      font-size: 24px;
+      font-weight: 900;
+      margin: 0;
+      background: linear-gradient(180deg, #e94560 0%, #ff6b6b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 10px rgba(233, 69, 96, 0.3);
+    }
+
+    .status {
+      font-size: 14px;
+      color: #a0a0a0;
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .status.connected {
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    .status.disconnected {
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.1);
+    }
+
+    /* Player UI */
+    .controls {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 40px;
       gap: 40px;
+      flex: 1;
+      width: 100%;
+      max-width: 500px;
     }
 
-    /* Joueur vivant : joystick */
-    #joystickArea {
-      width: 160px;
-      height: 160px;
-      border-radius: 999px;
-      background: #222;
-      border: 3px solid #555;
+    /* Joystick */
+    .joystick-container {
       position: relative;
-      touch-action: none;
+      width: 150px;
+      height: 150px;
     }
-    #stick {
-      width: 60px;
-      height: 60px;
-      border-radius: 999px;
-      background: #999;
-      border: 2px solid #fff;
+
+    .joystick-base {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #2d3748, #1a202c);
+      border: 3px solid #4a5568;
+      box-shadow: 
+        inset 0 -5px 15px rgba(0,0,0,0.4),
+        0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .joystick-stick {
       position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #e94560, #c73e54);
+      border: 3px solid #ff6b6b;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-    #pushBtn {
-      width: 120px;
-      height: 120px;
-      border-radius: 999px;
-      font-size: 18px;
-      font-weight: bold;
-      border: none;
-      background: #a00;
-      color: #fff;
-    }
-    #pushBtn:active {
-      background: #e00;
+      box-shadow: 
+        0 4px 15px rgba(233, 69, 96, 0.4),
+        inset 0 -3px 10px rgba(0,0,0,0.3);
+      transition: box-shadow 0.1s;
     }
 
-    /* Ecrans fantôme / loterie */
-    #lotteryUI, #ghostUI {
-      margin-top: 60px;
+    .joystick-stick.active {
+      box-shadow: 
+        0 4px 25px rgba(233, 69, 96, 0.6),
+        inset 0 -3px 10px rgba(0,0,0,0.3);
     }
-    .ghostBtn {
+
+    /* Push Button */
+    .push-btn {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: none;
+      font-size: 18px;
+      font-weight: 900;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #fff;
+      background: radial-gradient(circle at 30% 30%, #e94560, #b91c3c);
+      box-shadow: 
+        0 8px 0 #7f1d1d,
+        0 10px 20px rgba(0,0,0,0.4),
+        inset 0 -5px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: all 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .push-btn::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 20%;
+      width: 30%;
+      height: 20%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+    }
+
+    .push-btn:active {
+      transform: translateY(4px);
+      box-shadow: 
+        0 4px 0 #7f1d1d,
+        0 6px 15px rgba(0,0,0,0.4),
+        inset 0 -5px 15px rgba(0,0,0,0.3);
+    }
+
+    .push-btn .label {
+      display: block;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .push-btn .icon {
+      font-size: 32px;
+      display: block;
+    }
+
+    /* Lottery UI */
+    .lottery-ui {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+    }
+
+    .lottery-ui h2 {
+      font-size: 28px;
+      color: #f87171;
+      margin-bottom: 16px;
+    }
+
+    .lottery-spinner {
+      width: 80px;
+      height: 80px;
+      border: 6px solid rgba(255,255,255,0.1);
+      border-top-color: #e94560;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px 0;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Ghost UI */
+    .ghost-ui {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 20px;
+    }
+
+    .ghost-title {
+      font-size: 24px;
+      color: #a855f7;
+      text-align: center;
+    }
+
+    .ghost-subtitle {
+      font-size: 14px;
+      color: #a0a0a0;
+      margin-bottom: 20px;
+    }
+
+    .ghost-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ghost-btn {
       width: 140px;
-      height: 60px;
-      margin: 8px;
-      border-radius: 12px;
+      height: 100px;
+      border-radius: 16px;
       border: none;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 700;
+      font-family: 'Noto Sans JP', sans-serif;
       color: #fff;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    #ghostExplosion { background: #c0392b; }
-    #ghostBanana { background: #f1c40f; color: #000; }
+
+    .ghost-btn:active {
+      transform: scale(0.95);
+    }
+
+    .ghost-btn.explosion {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .ghost-btn.banana {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #1a1a2e;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+    }
+
+    .ghost-btn .icon {
+      font-size: 32px;
+    }
+
+    /* Spectator UI */
+    .spectator-ui {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+    }
+
+    .spectator-ui h2 {
+      font-size: 24px;
+      color: #64748b;
+    }
+
+    .spectator-ui p {
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+
+    /* Waiting UI */
+    .waiting-ui {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+    }
+
+    .waiting-ui h2 {
+      font-size: 24px;
+      color: #4ade80;
+    }
+
+    .waiting-ui p {
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+
+    .player-count {
+      font-size: 48px;
+      font-weight: 900;
+      color: #e94560;
+      margin: 20px 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
-  <h1>Manette Sumo</h1>
-  <div id="status">Connexion en cours...</div>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1 class="title">SUMO PANIC</h1>
+      <div id="status" class="status">Connexion...</div>
+    </div>
 
-  <!-- UI joueur vivant -->
-  <div id="playerUI">
-    <div class="pad">
-      <div id="joystickArea">
-        <div id="stick"></div>
+    <!-- Waiting UI (avant le debut de la manche) -->
+    <div id="waitingUI" class="waiting-ui">
+      <h2>En attente du lancement</h2>
+      <div class="player-count" id="playerCount">0</div>
+      <p>joueur(s) connecte(s)</p>
+      <p style="margin-top: 20px; color: #64748b;">Regardez l'ecran principal</p>
+    </div>
+
+    <!-- Player UI (joueur actif) -->
+    <div id="playerUI" class="controls" style="display: none;">
+      <div class="joystick-container">
+        <div class="joystick-base" id="joystickArea">
+          <div class="joystick-stick" id="stick"></div>
+        </div>
       </div>
 
-      <button id="pushBtn">POUSSER</button>
+      <button class="push-btn" id="pushBtn">
+        <span class="icon">&#128074;</span>
+        <span class="label">POUSSER</span>
+      </button>
     </div>
-  </div>
 
-  <!-- UI loterie fantôme -->
-  <div id="lotteryUI" style="display:none">
-    <h2>Vous êtes KO !</h2>
-    <p>Tirage au sort Fantôme en cours...</p>
-  </div>
+    <!-- Lottery UI -->
+    <div id="lotteryUI" class="lottery-ui">
+      <h2>ELIMINE!</h2>
+      <div class="lottery-spinner"></div>
+      <p>Tirage au sort fantome...</p>
+    </div>
 
-  <!-- UI fantôme -->
-  <div id="ghostUI" style="display:none">
-    <h2>Mode Fantôme</h2>
-    <p>Choisissez un piège :</p>
-    <button id="ghostExplosion" class="ghostBtn">Explosion</button>
-    <button id="ghostBanana" class="ghostBtn">Peau de banane</button>
+    <!-- Ghost UI -->
+    <div id="ghostUI" class="ghost-ui">
+      <h2 class="ghost-title">MODE FANTOME</h2>
+      <p class="ghost-subtitle">Choisissez un piege a declencher</p>
+      <div class="ghost-buttons">
+        <button class="ghost-btn explosion" id="ghostExplosion">
+          <span class="icon">&#128165;</span>
+          <span>EXPLOSION</span>
+        </button>
+        <button class="ghost-btn banana" id="ghostBanana">
+          <span class="icon">&#127820;</span>
+          <span>BANANE</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Spectator UI -->
+    <div id="spectatorUI" class="spectator-ui">
+      <h2>Spectateur</h2>
+      <p>Vous participerez a la prochaine manche</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Sumo Panic Arena
+    </div>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+    
+    // Elements
     const statusEl = document.getElementById('status');
-
+    const waitingUI = document.getElementById('waitingUI');
     const playerUI = document.getElementById('playerUI');
     const lotteryUI = document.getElementById('lotteryUI');
     const ghostUI = document.getElementById('ghostUI');
-
+    const spectatorUI = document.getElementById('spectatorUI');
+    const playerCountEl = document.getElementById('playerCount');
+    
     const joystickArea = document.getElementById('joystickArea');
     const stick = document.getElementById('stick');
     const pushBtn = document.getElementById('pushBtn');
-
+    
     const ghostExplosionBtn = document.getElementById('ghostExplosion');
     const ghostBananaBtn = document.getElementById('ghostBanana');
 
     let playerId = null;
-    let mode = 'player'; // 'player', 'lottery', 'ghost', 'spectator'
+    let mode = 'waiting'; // 'waiting', 'player', 'lottery', 'ghost', 'spectator'
 
-    const inputState = {
-      h: 0,
-      v: 0,
-      push: false
-    };
+    const inputState = { h: 0, v: 0, push: false };
 
-    // --------- Gestion des modes UI ---------
+    // --------- Mode UI ---------
+    function setMode(newMode) {
+      mode = newMode;
+      
+      waitingUI.style.display = 'none';
+      playerUI.style.display = 'none';
+      lotteryUI.style.display = 'none';
+      ghostUI.style.display = 'none';
+      spectatorUI.style.display = 'none';
 
-    function updateModeUI() {
-      if (mode === 'player') {
-        playerUI.style.display = 'block';
-        lotteryUI.style.display = 'none';
-        ghostUI.style.display = 'none';
-      } else if (mode === 'lottery') {
-        playerUI.style.display = 'none';
-        lotteryUI.style.display = 'block';
-        ghostUI.style.display = 'none';
-      } else if (mode === 'ghost') {
-        playerUI.style.display = 'none';
-        lotteryUI.style.display = 'none';
-        ghostUI.style.display = 'block';
-      } else if (mode === 'spectator') {
-        playerUI.style.display = 'none';
-        lotteryUI.style.display = 'none';
-        ghostUI.style.display = 'none';
+      switch(mode) {
+        case 'waiting':
+          waitingUI.style.display = 'flex';
+          break;
+        case 'player':
+          playerUI.style.display = 'flex';
+          break;
+        case 'lottery':
+          lotteryUI.style.display = 'flex';
+          break;
+        case 'ghost':
+          ghostUI.style.display = 'flex';
+          break;
+        case 'spectator':
+          spectatorUI.style.display = 'flex';
+          break;
       }
     }
 
-    // --------- Connexion / événements serveur ---------
-
+    // --------- Socket Events ---------
     socket.on('connect', () => {
-      statusEl.textContent = 'Connexion au serveur...';
+      statusEl.textContent = 'Connexion...';
+      statusEl.className = 'status';
     });
 
     socket.on('hello', (data) => {
       playerId = data.playerId;
       const phase = data.phase || 'LOBBY';
 
-      if (phase === 'PLAYING') {
-        // Manche déjà en cours -> spectateur
-        mode = 'spectator';
-        statusEl.textContent = `Joueur #${playerId} connecté (spectateur). Manche en cours, vous participerez à la prochaine.`;
-      } else {
-        // Lobby -> joueur normal
-        mode = 'player';
-        statusEl.textContent = `Joueur #${playerId} connecté. En attente du lancement de la manche...`;
-      }
+      statusEl.textContent = `Joueur #${playerId}`;
+      statusEl.className = 'status connected';
 
-      updateModeUI();
+      if (phase === 'PLAYING') {
+        setMode('spectator');
+      } else {
+        setMode('waiting');
+      }
+    });
+
+    socket.on('playerCount', (count) => {
+      if (playerCountEl) {
+        playerCountEl.textContent = count;
+      }
+    });
+
+    socket.on('roundStarted', (data) => {
+      // La manche commence, on devient joueur actif
+      setMode('player');
+    });
+
+    socket.on('roundReset', (data) => {
+      // Retour au lobby
+      setMode('waiting');
     });
 
     socket.on('enterLottery', () => {
-      mode = 'lottery';
-      statusEl.textContent = `Joueur #${playerId} éliminé. Tirage au sort Fantôme...`;
-      // on arrête les déplacements
+      setMode('lottery');
       inputState.h = 0;
       inputState.v = 0;
       inputState.push = false;
       resetJoystick();
-      updateModeUI();
     });
 
     socket.on('ghostResult', (data) => {
       if (data && data.selected) {
-        // Gagné -> fantôme
-        mode = 'ghost';
-        statusEl.textContent = `Joueur #${playerId} devient Fantôme !`;
+        setMode('ghost');
       } else {
-        // Perdu -> spectateur
-        mode = 'spectator';
-        statusEl.textContent = `Pas de pouvoir fantôme cette manche. Vous êtes spectateur.`;
+        setMode('spectator');
       }
-      updateModeUI();
     });
 
     socket.on('enterGhostMode', () => {
-      mode = 'ghost';
-      updateModeUI();
+      setMode('ghost');
     });
 
     socket.on('disconnect', () => {
-      statusEl.textContent = 'Déconnecté ❌';
-      mode = 'spectator';
-      updateModeUI();
+      statusEl.textContent = 'Deconnecte';
+      statusEl.className = 'status disconnected';
+      setMode('spectator');
     });
 
-    // --------- Envoi régulier des inputs (joueur vivant) ---------
-
+    // --------- Input Loop ---------
     function sendInputLoop() {
       if (mode !== 'player') {
-        // inputs neutres si on n'est pas joueur vivant
         inputState.h = 0;
         inputState.v = 0;
         inputState.push = false;
       }
-
       socket.emit('input', inputState);
       setTimeout(sendInputLoop, 50);
     }
     sendInputLoop();
 
-    // --------- Gestion du bouton PUSH ---------
-
+    // --------- Push Button ---------
     function addPressHold(btn, onDown, onUp) {
       const upFn = onUp || (() => {});
       btn.addEventListener('touchstart', (e) => { e.preventDefault(); onDown(); });
-      btn.addEventListener('touchend',   (e) => { e.preventDefault(); upFn(); });
-      btn.addEventListener('mousedown',  (e) => { e.preventDefault(); onDown(); });
-      btn.addEventListener('mouseup',    (e) => { e.preventDefault(); upFn(); });
+      btn.addEventListener('touchend', (e) => { e.preventDefault(); upFn(); });
+      btn.addEventListener('mousedown', (e) => { e.preventDefault(); onDown(); });
+      btn.addEventListener('mouseup', (e) => { e.preventDefault(); upFn(); });
       btn.addEventListener('mouseleave', (e) => { e.preventDefault(); upFn(); });
     }
 
-    addPressHold(
-      pushBtn,
+    addPressHold(pushBtn,
       () => { inputState.push = true; },
       () => { inputState.push = false; }
     );
 
-    // --------- Joystick virtuel ---------
-
+    // --------- Joystick ---------
     let joystickActive = false;
-    const maxRadius = 60;
+    const maxRadius = 50;
 
     function getPointFromEvent(e) {
       if (e.touches && e.touches.length > 0) {
         return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      } else {
-        return { x: e.clientX, y: e.clientY };
       }
+      return { x: e.clientX, y: e.clientY };
     }
 
     function updateJoystick(e) {
@@ -277,17 +560,18 @@
         dy = dy * maxRadius / dist;
       }
 
-      stick.style.transform = `translate(${dx}px, ${dy}px)`;
+      stick.style.left = `calc(50% + ${dx}px)`;
+      stick.style.top = `calc(50% + ${dy}px)`;
+      stick.classList.add('active');
 
-      const nx = dx / maxRadius;
-      const ny = dy / maxRadius;
-
-      inputState.h = nx;
-      inputState.v = -ny;
+      inputState.h = dx / maxRadius;
+      inputState.v = -dy / maxRadius;
     }
 
     function resetJoystick() {
-      stick.style.transform = 'translate(-50%, -50%)';
+      stick.style.left = '50%';
+      stick.style.top = '50%';
+      stick.classList.remove('active');
       inputState.h = 0;
       inputState.v = 0;
     }
@@ -320,30 +604,35 @@
 
     window.addEventListener('mousemove', (e) => {
       if (!joystickActive || mode !== 'player') return;
-      e.preventDefault();
       updateJoystick(e);
     });
 
-    window.addEventListener('mouseup', (e) => {
+    window.addEventListener('mouseup', () => {
       if (!joystickActive) return;
-      e.preventDefault();
       joystickActive = false;
       resetJoystick();
     });
 
-    // --------- Boutons de pièges fantôme ---------
-
+    // --------- Ghost Buttons ---------
     ghostExplosionBtn.addEventListener('click', () => {
       if (mode === 'ghost') {
         socket.emit('trap', { playerId, type: 'explosion' });
+        // Feedback visuel
+        ghostExplosionBtn.style.transform = 'scale(0.9)';
+        setTimeout(() => { ghostExplosionBtn.style.transform = ''; }, 200);
       }
     });
 
     ghostBananaBtn.addEventListener('click', () => {
       if (mode === 'ghost') {
         socket.emit('trap', { playerId, type: 'banana' });
+        ghostBananaBtn.style.transform = 'scale(0.9)';
+        setTimeout(() => { ghostBananaBtn.style.transform = ''; }, 200);
       }
     });
+
+    // --------- Init ---------
+    setMode('waiting');
   </script>
 </body>
 </html>

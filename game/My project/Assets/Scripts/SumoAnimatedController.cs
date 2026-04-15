@@ -255,16 +255,12 @@ public class SumoAnimatedController : MonoBehaviour
             rb.AddForce(bounceDir * 5f, ForceMode.Impulse);
         }
     }
-//<<<<<<< HEAD
-//=======
-
     public void AddKnockback(Vector3 impulse)
     {
-    if (rb == null)
-        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
 
-    // Applique l'impulsion directement au Rigidbody
-    rb.AddForce(impulse, ForceMode.Impulse);
+        // Applique l'impulsion directement au Rigidbody
+        rb.AddForce(impulse, ForceMode.Impulse);
     }
-//>>>>>>> 705b7c8 (bon)
 }
