@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUMO PANIC ARENA - Lobby</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #1a0a0a 0%, #2d1b14 50%, #1a0a0a 100%);
+      min-height: 100vh;
+      overflow: hidden;
+      color: #f5e6d3;
+    }
+
+    /* ===== PHASE CONTAINER ===== */
+    .phase {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .phase.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ===== PHASE 1: TITRE ===== */
+    #phase-title {
+      background: radial-gradient(ellipse at center, #3d2117 0%, #1a0a0a 70%);
+    }
+
+    .title-container {
+      text-align: center;
+      animation: titlePulse 2s ease-in-out infinite;
+    }
+
+    .main-title {
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 900;
+      color: #f5e6d3;
+      text-shadow: 
+        0 0 20px rgba(255, 100, 50, 0.8),
+        0 0 40px rgba(255, 50, 0, 0.6),
+        4px 4px 0 #8b4513,
+        8px 8px 0 #2d1b14;
+      letter-spacing: 0.1em;
+      line-height: 1.1;
+    }
+
+    .main-title span {
+      display: block;
+    }
+
+    .main-title .arena {
+      font-size: 0.6em;
+      color: #ffd700;
+      text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.8),
+        2px 2px 0 #8b4513;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 2rem);
+      margin-top: 1rem;
+      color: #d4a574;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* ===== PHASE 2: SUMO CHARGE ===== */
+    #phase-sumo {
+      background: #1a0a0a;
+      overflow: hidden;
+    }
+
+    .sumo-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sumo-character {
+      position: absolute;
+      left: -400px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20rem;
+      filter: drop-shadow(0 0 30px rgba(255, 100, 50, 0.5));
+    }
+
+    .dust-trail {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(90deg, 
+        rgba(139, 69, 19, 0.8) 0%, 
+        rgba(139, 69, 19, 0.4) 30%,
+        transparent 60%);
+      opacity: 0;
+    }
+
+    .impact-flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ===== PHASE 3: QR CODE ===== */
+    #phase-qr {
+      background: radial-gradient(ellipse at center, #2d1b14 0%, #1a0a0a 100%);
+    }
+
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .qr-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      color: #ffd700;
+      text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.5),
+        2px 2px 0 #8b4513;
+    }
+
+    .qr-frame {
+      background: #f5e6d3;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.3),
+        inset 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .qr-frame::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 4px solid #8b4513;
+      border-radius: 1.5rem;
+      pointer-events: none;
+    }
+
+    .qr-code {
+      width: clamp(200px, 30vw, 350px);
+      height: clamp(200px, 30vw, 350px);
+      display: block;
+    }
+
+    .scan-instruction {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: #f5e6d3;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .url-text {
+      font-size: clamp(0.9rem, 2vw, 1.3rem);
+      color: #d4a574;
+      background: rgba(0,0,0,0.3);
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      font-family: monospace;
+    }
+
+    /* Player Counter */
+    .player-counter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .player-count {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: #ffd700;
+      text-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.8),
+        3px 3px 0 #8b4513;
+    }
+
+    .player-label {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: #d4a574;
+    }
+
+    .player-icons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 500px;
+    }
+
+    .player-icon {
+      font-size: 2rem;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+
+    .player-icon.active {
+      opacity: 1;
+      animation: playerJoin 0.5s ease;
+    }
+
+    @keyframes playerJoin {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* Start Button */
+    .start-button {
+      margin-top: 2rem;
+      padding: 1rem 4rem;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #1a0a0a;
+      background: linear-gradient(180deg, #ffd700 0%, #ff8c00 100%);
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      box-shadow: 
+        0 6px 0 #8b4513,
+        0 10px 20px rgba(0,0,0,0.4);
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+    }
+
+    .start-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 0 #8b4513,
+        0 12px 25px rgba(0,0,0,0.5);
+    }
+
+    .start-button:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: 
+        0 2px 0 #8b4513,
+        0 5px 10px rgba(0,0,0,0.3);
+    }
+
+    .start-button:disabled {
+      background: linear-gradient(180deg, #888 0%, #555 100%);
+      cursor: not-allowed;
+      color: #333;
+    }
+
+    /* ===== PHASE 4: INSTRUCTIONS ===== */
+    #phase-instructions {
+      background: radial-gradient(ellipse at center, #2d1b14 0%, #1a0a0a 100%);
+    }
+
+    .instructions-panel {
+      background: linear-gradient(135deg, #f5e6d3 0%, #d4a574 100%);
+      padding: 3rem;
+      border-radius: 1rem;
+      max-width: 800px;
+      box-shadow: 
+        0 0 40px rgba(255, 215, 0, 0.3),
+        0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .instructions-panel::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      border: 5px solid #8b4513;
+      border-radius: 1.5rem;
+      pointer-events: none;
+    }
+
+    .instructions-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #2d1b14;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 0 rgba(255,255,255,0.3);
+    }
+
+    .instruction-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .instruction-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: #2d1b14;
+    }
+
+    .instruction-icon {
+      font-size: 2.5rem;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* ===== PHASE 5: COUNTDOWN ===== */
+    #phase-countdown {
+      background: radial-gradient(ellipse at center, #3d2117 0%, #1a0a0a 100%);
+    }
+
+    .countdown-number {
+      font-size: clamp(15rem, 40vw, 30rem);
+      font-weight: 900;
+      color: #ffd700;
+      text-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.8),
+        0 0 100px rgba(255, 100, 50, 0.5),
+        10px 10px 0 #8b4513,
+        20px 20px 0 #2d1b14;
+      animation: countdownPulse 1s ease-in-out;
+    }
+
+    .countdown-number.go {
+      font-size: clamp(8rem, 25vw, 15rem);
+      color: #ff4500;
+      animation: goAnimation 0.8s ease-out forwards;
+    }
+
+    @keyframes countdownPulse {
+      0% { transform: scale(1.5); opacity: 0; }
+      50% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    @keyframes goAnimation {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .countdown-subtitle {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #d4a574;
+      margin-top: 1rem;
+    }
+
+    /* ===== DECORATIONS ===== */
+    .decoration {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0.1;
+    }
+
+    .cloud {
+      font-size: 8rem;
+      color: #f5e6d3;
+    }
+
+    .cloud-1 { top: 5%; left: 5%; animation: floatCloud 20s ease-in-out infinite; }
+    .cloud-2 { top: 15%; right: 10%; animation: floatCloud 25s ease-in-out infinite reverse; }
+    .cloud-3 { bottom: 20%; left: 15%; animation: floatCloud 22s ease-in-out infinite; }
+
+    @keyframes floatCloud {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(30px); }
+    }
+
+    /* ===== SCREEN SHAKE ===== */
+    @keyframes screenShake {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-10px, -5px); }
+      20% { transform: translate(10px, 5px); }
+      30% { transform: translate(-5px, 10px); }
+      40% { transform: translate(5px, -10px); }
+      50% { transform: translate(-10px, 5px); }
+      60% { transform: translate(10px, -5px); }
+      70% { transform: translate(-5px, -10px); }
+      80% { transform: translate(5px, 10px); }
+      90% { transform: translate(-10px, -5px); }
+    }
+
+    .shake {
+      animation: screenShake 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Decorations -->
+  <div class="decoration cloud cloud-1">&#9729;</div>
+  <div class="decoration cloud cloud-2">&#9729;</div>
+  <div class="decoration cloud cloud-3">&#9729;</div>
+
+  <!-- PHASE 1: TITRE -->
+  <div id="phase-title" class="phase active">
+    <div class="title-container">
+      <h1 class="main-title">
+        <span>SUMO PANIC</span>
+        <span class="arena">ARENA</span>
+      </h1>
+      <p class="subtitle">Le dernier debout gagne!</p>
+    </div>
+  </div>
+
+  <!-- PHASE 2: SUMO CHARGE -->
+  <div id="phase-sumo" class="phase">
+    <div class="sumo-container">
+      <div class="dust-trail"></div>
+      <div class="sumo-character">&#x1F44A;</div>
+    </div>
+    <div class="impact-flash"></div>
+  </div>
+
+  <!-- PHASE 3: QR CODE -->
+  <div id="phase-qr" class="phase">
+    <div class="qr-container">
+      <h2 class="qr-title">REJOIGNEZ LA PARTIE!</h2>
+      
+      <div class="qr-frame">
+        <img id="qr-code" class="qr-code" src="" alt="QR Code">
+      </div>
+      
+      <p class="scan-instruction">Scannez le QR Code avec votre telephone</p>
+      <p id="url-text" class="url-text"></p>
+      
+      <div class="player-counter">
+        <div class="player-count"><span id="player-count-number">0</span>/8</div>
+        <div class="player-label">JOUEURS CONNECTES</div>
+        <div class="player-icons" id="player-icons"></div>
+      </div>
+      
+      <button id="start-button" class="start-button" disabled>EN ATTENTE</button>
+    </div>
+  </div>
+
+  <!-- PHASE 4: INSTRUCTIONS -->
+  <div id="phase-instructions" class="phase">
+    <div class="instructions-panel">
+      <h2 class="instructions-title">COMMENT JOUER</h2>
+      <div class="instruction-list">
+        <div class="instruction-item">
+          <span class="instruction-icon">&#x1F579;</span>
+          <span>Utilisez le <strong>JOYSTICK</strong> pour vous deplacer</span>
+        </div>
+        <div class="instruction-item">
+          <span class="instruction-icon">&#x1F44A;</span>
+          <span>Appuyez sur <strong>POUSSER</strong> pour repousser vos adversaires</span>
+        </div>
+        <div class="instruction-item">
+          <span class="instruction-icon">&#x26A0;</span>
+          <span>Restez sur la plateforme - <strong>Le sol s'effondre!</strong></span>
+        </div>
+        <div class="instruction-item">
+          <span class="instruction-icon">&#x1F98F;</span>
+          <span>Attention au <strong>RHINOCEROS</strong> aleatoire!</span>
+        </div>
+        <div class="instruction-item">
+          <span class="instruction-icon">&#x1F3C6;</span>
+          <span><strong>LE DERNIER SUMO DEBOUT GAGNE!</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 5: COUNTDOWN -->
+  <div id="phase-countdown" class="phase">
+    <div id="countdown-number" class="countdown-number">3</div>
+    <p class="countdown-subtitle">PREPAREZ-VOUS!</p>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // ===== CONFIGURATION =====
+    const MIN_PLAYERS = 1;
+    const MAX_PLAYERS = 8;
+    const TITLE_DURATION = 3000;
+    const SUMO_CHARGE_DURATION = 2000;
+    const INSTRUCTIONS_DURATION = 4000;
+
+    // ===== STATE =====
+    let currentPhase = 'title';
+    let playerCount = 0;
+    let socket = null;
+
+    // ===== ELEMENTS =====
+    const phases = {
+      title: document.getElementById('phase-title'),
+      sumo: document.getElementById('phase-sumo'),
+      qr: document.getElementById('phase-qr'),
+      instructions: document.getElementById('phase-instructions'),
+      countdown: document.getElementById('phase-countdown')
+    };
+
+    const elements = {
+      qrCode: document.getElementById('qr-code'),
+      urlText: document.getElementById('url-text'),
+      playerCountNumber: document.getElementById('player-count-number'),
+      playerIcons: document.getElementById('player-icons'),
+      startButton: document.getElementById('start-button'),
+      countdownNumber: document.getElementById('countdown-number'),
+      sumoCharacter: document.querySelector('.sumo-character'),
+      dustTrail: document.querySelector('.dust-trail'),
+      impactFlash: document.querySelector('.impact-flash')
+    };
+
+    // ===== PHASE MANAGEMENT =====
+    function showPhase(phaseName) {
+      Object.keys(phases).forEach(key => {
+        phases[key].classList.remove('active');
+      });
+      if (phases[phaseName]) {
+        phases[phaseName].classList.add('active');
+      }
+      currentPhase = phaseName;
+    }
+
+    // ===== INTRO SEQUENCE =====
+    async function runIntroSequence() {
+      // Phase 1: Titre
+      showPhase('title');
+      await sleep(TITLE_DURATION);
+
+      // Phase 2: Sumo Charge
+      showPhase('sumo');
+      await playSumoChargeAnimation();
+
+      // Phase 3: QR Code
+      showPhase('qr');
+      await generateQRCode();
+      connectToServer();
+    }
+
+    async function playSumoChargeAnimation() {
+      const sumo = elements.sumoCharacter;
+      const dust = elements.dustTrail;
+      const flash = elements.impactFlash;
+
+      // Reset position
+      sumo.style.left = '-400px';
+      dust.style.opacity = '0';
+
+      await sleep(500);
+
+      // Start dust trail
+      dust.style.opacity = '1';
+      dust.style.transition = 'opacity 0.3s';
+
+      // Animate sumo charging
+      const startTime = Date.now();
+      const duration = SUMO_CHARGE_DURATION;
+
+      return new Promise(resolve => {
+        function animate() {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function (ease-in-out)
+          const eased = progress < 0.5 
+            ? 2 * progress * progress 
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+          
+          const targetX = window.innerWidth / 2 - 100;
+          const currentX = -400 + (targetX + 400) * eased;
+          
+          sumo.style.left = currentX + 'px';
+
+          // Add shake effect near the end
+          if (progress > 0.7) {
+            const shake = Math.sin(elapsed * 0.05) * 10 * (1 - progress);
+            sumo.style.top = `calc(50% + ${shake}px)`;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            // Impact!
+            playImpactEffect().then(resolve);
+          }
+        }
+        animate();
+      });
+    }
+
+    async function playImpactEffect() {
+      const flash = elements.impactFlash;
+      
+      // Screen shake
+      document.body.classList.add('shake');
+      
+      // Flash
+      flash.style.transition = 'none';
+      flash.style.opacity = '1';
+      
+      await sleep(100);
+      
+      flash.style.transition = 'opacity 0.5s';
+      flash.style.opacity = '0';
+      
+      await sleep(300);
+      document.body.classList.remove('shake');
+    }
+
+    // ===== QR CODE =====
+    async function generateQRCode() {
+      const serverUrl = window.location.hostname;
+      const port = window.location.port || '3000';
+      const playUrl = `http://${serverUrl}:${port}/play`;
+      
+      elements.urlText.textContent = playUrl;
+      
+      // Generate QR code using API
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(playUrl)}&bgcolor=F5E6D3&color=2D1B14`;
+      elements.qrCode.src = qrApiUrl;
+
+      // Initialize player icons
+      updatePlayerIcons(0);
+    }
+
+    // ===== SERVER CONNECTION =====
+    function connectToServer() {
+      socket = io();
+
+      socket.on('playerCount', (count) => {
+        updatePlayerCount(count);
+      });
+
+      socket.on('roundStarted', () => {
+        // La partie a demarre depuis Unity ou ailleurs
+        showPhase('countdown');
+        runCountdown();
+      });
+
+      // Poll player count as backup
+      setInterval(async () => {
+        try {
+          const response = await fetch('/api/playerCount');
+          const count = parseInt(await response.text());
+          if (!isNaN(count)) {
+            updatePlayerCount(count);
+          }
+        } catch (e) {
+          console.log('Polling error:', e);
+        }
+      }, 1000);
+    }
+
+    function updatePlayerCount(count) {
+      const prevCount = playerCount;
+      playerCount = count;
+
+      elements.playerCountNumber.textContent = count;
+      updatePlayerIcons(count);
+
+      // Enable/disable start button
+      if (count >= MIN_PLAYERS) {
+        elements.startButton.disabled = false;
+        elements.startButton.textContent = 'COMMENCER!';
+      } else {
+        elements.startButton.disabled = true;
+        elements.startButton.textContent = `EN ATTENTE (${count}/${MIN_PLAYERS})`;
+      }
+
+      // Play join sound effect (visual feedback)
+      if (count > prevCount) {
+        flashPlayerIcon(count - 1);
+      }
+    }
+
+    function updatePlayerIcons(count) {
+      elements.playerIcons.innerHTML = '';
+      for (let i = 0; i < MAX_PLAYERS; i++) {
+        const icon = document.createElement('span');
+        icon.className = 'player-icon' + (i < count ? ' active' : '');
+        icon.textContent = '&#x1F94B;'; // Sumo emoji
+        icon.innerHTML = '&#x1F94B;';
+        elements.playerIcons.appendChild(icon);
+      }
+    }
+
+    function flashPlayerIcon(index) {
+      const icons = elements.playerIcons.querySelectorAll('.player-icon');
+      if (icons[index]) {
+        icons[index].style.animation = 'none';
+        icons[index].offsetHeight; // Trigger reflow
+        icons[index].style.animation = 'playerJoin 0.5s ease';
+      }
+    }
+
+    // ===== START GAME =====
+    elements.startButton.addEventListener('click', startGame);
+
+    // Keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && currentPhase === 'qr' && playerCount >= MIN_PLAYERS) {
+        startGame();
+      }
+    });
+
+    async function startGame() {
+      if (playerCount < MIN_PLAYERS) return;
+      
+      elements.startButton.disabled = true;
+      elements.startButton.textContent = 'DEMARRAGE...';
+
+      // Show instructions
+      showPhase('instructions');
+      await sleep(INSTRUCTIONS_DURATION);
+
+      // Countdown
+      showPhase('countdown');
+      await runCountdown();
+
+      // Notify server
+      try {
+        await fetch('/api/startRound', { method: 'POST' });
+      } catch (e) {
+        console.log('Start error:', e);
+      }
+
+      // Redirect to game or hide lobby
+      await sleep(1000);
+      
+      // Option: reload to clear state for next round
+      // window.location.reload();
+    }
+
+    async function runCountdown() {
+      const countdownEl = elements.countdownNumber;
+      
+      for (let i = 3; i > 0; i--) {
+        countdownEl.textContent = i;
+        countdownEl.classList.remove('go');
+        countdownEl.style.animation = 'none';
+        countdownEl.offsetHeight;
+        countdownEl.style.animation = 'countdownPulse 1s ease-in-out';
+        await sleep(1000);
+      }
+
+      countdownEl.textContent = 'SUMO!';
+      countdownEl.classList.add('go');
+    }
+
+    // ===== UTILITIES =====
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // ===== START =====
+    runIntroSequence();
+  </script>
+</body>
+</html>
